@@ -4,15 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penghubung Pembelajaran - GitHub & Apps Script</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Connecting... | E-Learning Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-light: #e0e7ff;
-            --success: #10b981;
-            --dark: #1e293b;
-            --gray: #64748b;
             --bg: #f8fafc;
         }
 
@@ -25,29 +21,119 @@
 
         body {
             background-color: var(--bg);
-            color: var(--dark);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            overflow: hidden;
         }
 
-        .container {
+        .bridge-container {
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Modern Pulse Loader */
+        .loader-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+        }
+
+        .loader-circle {
+            position: absolute;
             width: 100%;
-            max-width: 850px;
+            height: 100%;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: pulse 2s infinite;
+        }
+
+        .loader-circle:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .loader-circle:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.6);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .main-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: var(--primary);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(-50%, -55%);
+            }
+
+            50% {
+                transform: translate(-50%, -45%);
+            }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Config Box (Hidden by default, shown if no URL) */
+        #configBox {
+            margin-top: 3rem;
+            padding: 2rem;
             background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            animation: slideUp 0.6s ease-out;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            max-width: 400px;
+            display: none;
+            animation: slideUp 0.5s ease-out;
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
 
             to {
@@ -56,358 +142,120 @@
             }
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
-            padding: 3rem 2rem;
-            color: white;
-            text-align: center;
-        }
-
-        .header i {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            opacity: 0.85;
-            font-size: 1.1rem;
-        }
-
-        .content {
-            padding: 3rem 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .section-title h2 {
-            font-size: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* URL Input Section */
-        .url-box {
-            background: var(--primary-light);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px dashed var(--primary);
-            margin-bottom: 3rem;
-        }
-
-        .url-box label {
-            display: block;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-size: 1rem;
-        }
-
         .input-group {
+            margin-top: 1rem;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .url-input {
-            flex: 1;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            border: 1px solid #cbd5e0;
-            font-size: 1rem;
+        input {
+            padding: 0.8rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
             outline: none;
-            transition: all 0.3s;
+            width: 100%;
         }
 
-        .url-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        .btn-save {
+        button {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-save:hover {
-            background: #4338ca;
-            transform: translateY(-2px);
-        }
-
-        /* Flow Visual */
-        .flow-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-bottom: 3rem;
-            padding: 1rem;
-            background: #f1f5f9;
-            border-radius: 20px;
-        }
-
-        .flow-item {
-            text-align: center;
-            flex: 1;
-        }
-
-        .flow-icon {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            color: var(--primary);
-            font-size: 1.5rem;
-        }
-
-        .flow-item span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gray);
-            display: block;
-        }
-
-        .flow-arrow {
-            color: #cbd5e0;
-            font-size: 1.2rem;
-            animation: bounceRight 1s infinite alternate;
-        }
-
-        @keyframes bounceRight {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(10px);
-            }
-        }
-
-        /* Cards Section */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .info-card {
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-        }
-
-        .info-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-card i {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-card p {
-            font-size: 0.9rem;
-            color: var(--gray);
-            line-height: 1.5;
-        }
-
-        .footer {
-            padding: 2rem;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-outline {
-            text-decoration: none;
-            color: var(--gray);
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.3s;
-        }
-
-        .btn-outline:hover {
-            color: var(--dark);
-        }
-
-        .btn-github-large {
-            background: #24292f;
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.8rem;
             border-radius: 10px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
+            cursor: pointer;
         }
 
-        .btn-github-large:hover {
-            background: #000;
-            transform: translateY(-2px);
+        .dots::after {
+            content: '';
+            animation: dots 1.5s infinite;
         }
 
-        @media (max-width: 640px) {
-            .input-group {
-                flex-direction: column;
+        @keyframes dots {
+            0% {
+                content: '';
             }
 
-            .btn-save {
-                padding: 1rem;
+            33% {
+                content: '.';
             }
 
-            .info-grid {
-                grid-template-columns: 1fr;
+            66% {
+                content: '..';
             }
 
-            .flow-arrow {
-                display: none;
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
+            100% {
+                content: '...';
             }
         }
     </style>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <div class="container" id="app">
-        <!-- Header -->
-        <div class="header">
-            <i class="fas fa-graduation-cap"></i>
-            <h1>Portal Materi Pembelajaran</h1>
-            <p>Jembatan sinkronisasi antara Editor Kode (GitHub) dan Aplikasi Pembelajaran (Apps Script)</p>
-        </div>
-
-        <div class="content">
-            <!-- URL Input Section -->
-            <div class="url-box">
-                <label for="appsScriptUrl"><i class="fas fa-link"></i> KONFIGURASI APLIKASI</label>
-                <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 1rem;">
-                    Tempelkan (Paste) URL Deployment Apps Script Anda di bawah ini untuk memudahkan akses cepat.
-                </p>
-                <div class="input-group">
-                    <input type="text" id="appsScriptUrl" class="url-input"
-                        placeholder="https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec" autocomplete="off">
-                    <button class="btn-save" onclick="saveUrl()">Simpan Link</button>
-                </div>
-                <div id="saveStatus" style="margin-top: 10px; font-size: 0.85rem; display: none;"></div>
-            </div>
-
-            <!-- Flow Visual -->
-            <div class="section-title">
-                <h2><i class="fas fa-project-diagram"></i> Alur Kerja Materi</h2>
-            </div>
-
-            <div class="flow-container">
-                <div class="flow-item">
-                    <div class="flow-icon"><i class="fab fa-github"></i></div>
-                    <span>Update Kode</span>
-                </div>
-                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-                <div class="flow-item">
-                    <div class="flow-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <span>Push ke Cloud</span>
-                </div>
-                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-                <div class="flow-item">
-                    <div class="flow-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <span>Update Aplikasi</span>
-                </div>
-            </div>
-
-            <!-- Info Grid -->
-            <div class="info-grid">
-                <div class="info-card">
-                    <i class="fas fa-book-open"></i>
-                    <h3>Materi Dinamis</h3>
-                    <p>Semua materi yang Anda update di GitHub akan otomatis tersinkronisasi ke aplikasi siswa.</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-code-branch"></i>
-                    <h3>Versi Terkontrol</h3>
-                    <p>Mendukung pengelolaan versi pembelajaran yang aman dan tertata rapi melalui repositori.</p>
-                </div>
+    <div class="bridge-container">
+        <div class="loader-wrapper" id="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="main-icon">
+                <i class="fas fa-link"></i>
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <a href="#" onclick="window.close(); return false;" class="btn-outline">
-                <i class="fas fa-chevron-left"></i> Kembali ke Aplikasi
-            </a>
-            <a href="https://github.com/hendikuswandi" target="_blank" class="btn-github-large">
-                <i class="fab fa-github"></i> Buka Repositori GitHub
-            </a>
+        <h1 id="statusTitle">Menghubungkan<span class="dots"></span></h1>
+        <p id="statusDesc">Sedang memproses sambungan ke Apps Script...</p>
+
+        <!-- Muncul hanya jika URL belum diset -->
+        <div id="configBox">
+            <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">Setup Penghubung</h2>
+            <p style="font-size: 0.85rem; margin-bottom: 1.5rem;">Copi paste URL Appscript Anda di sini untuk pertama
+                kali.</p>
+            <div class="input-group">
+                <input type="text" id="targetUrl" placeholder="https://script.google.com/macros/s/.../exec">
+                <button onclick="saveAndRedirect()">Mulai Menghubungkan</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Memuat URL yang tersimpan saat halaman dibuka
+        const STORAGE_KEY = 'user_appscript_url';
+
         window.onload = function () {
-            const savedUrl = localStorage.getItem('user_appscript_url');
-            if (savedUrl) {
-                document.getElementById('appsScriptUrl').value = savedUrl;
+            const savedUrl = localStorage.getItem(STORAGE_KEY);
+
+            if (savedUrl && savedUrl.startsWith('http')) {
+                // Ada URL, lakukan redirect setelah animasi singkat
+                setTimeout(() => {
+                    window.location.href = savedUrl;
+                }, 2000);
+            } else {
+                // Tidak ada URL, tampilkan kotak konfigurasi
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('statusTitle').innerText = 'Konfigurasi Diperlukan';
+                document.getElementById('statusDesc').innerText = 'https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec';
+                document.getElementById('configBox').style.display = 'block';
             }
         };
 
-        function saveUrl() {
-            const url = document.getElementById('appsScriptUrl').value;
-            const status = document.getElementById('saveStatus');
+        function saveAndRedirect() {
+            const url = document.getElementById('targetUrl').value.trim();
+            if (url && url.startsWith('http')) {
+                localStorage.setItem(STORAGE_KEY, url);
 
-            if (url) {
-                localStorage.setItem('user_appscript_url', url);
-                status.innerText = '✅ Link berhasil disimpan di browser Anda!';
-                status.style.color = 'var(--success)';
-                status.style.display = 'block';
+                // Tampilkan kembali loader
+                document.getElementById('configBox').style.display = 'none';
+                document.getElementById('loader').style.display = 'block';
+                document.getElementById('statusTitle').innerHTML = 'Menghubungkan<span class="dots"></span>';
+                document.getElementById('statusDesc').innerText = 'URL disimpan. Mengarahkan sekarang...';
 
                 setTimeout(() => {
-                    status.style.display = 'none';
-                }, 3000);
+                    window.location.href = url;
+                }, 1500);
             } else {
-                status.innerText = '❌ Silakan masukkan URL terlebih dahulu.';
-                status.style.color = '#ef4444';
-                status.style.display = 'block';
+                alert('Silakan masukkan URL yang valid!');
             }
         }
     </script>
