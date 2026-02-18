@@ -4,19 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Learning Sync | Platform Pembelajaran Modern</title>
+    <title>E-Learning Sync | Platform Masa Depan</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #4F46E5;
-            --primary-dark: #3730A3;
             --dark: #0F172A;
-            --light: #F8FAFC;
-            --white: #FFFFFF;
-            --text-main: #1E293B;
-            --text-muted: #64748B;
+            --light-blue: #EEF2FF;
+            --gray: #64748B;
         }
 
         * {
@@ -27,15 +23,14 @@
         }
 
         body {
-            background-color: var(--white);
-            color: var(--text-main);
+            background-color: #ffffff;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: radial-gradient(circle at 90% 10%, #E0E7FF 0%, transparent 40%),
-                radial-gradient(circle at 10% 90%, #F0FDF4 0%, transparent 40%);
+            background: radial-gradient(circle at 95% 5%, #eff6ff 0%, transparent 40%),
+                radial-gradient(circle at 5% 95%, #f8fafc 0%, transparent 40%);
         }
 
         .container {
@@ -44,14 +39,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 4rem;
-            animation: fadeIn 1s ease-out;
+            gap: 2rem;
+            animation: fadeIn 1.2s ease-out;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
 
             to {
@@ -60,76 +55,64 @@
             }
         }
 
-        .hero-content {
-            flex: 1;
+        .hero-text {
+            flex: 1.2;
         }
 
         .badge {
             display: inline-block;
-            padding: 0.5rem 1.25rem;
-            background: #EEF2FF;
+            padding: 0.6rem 1.4rem;
+            background: var(--light-blue);
             color: var(--primary);
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 0.8rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.1);
         }
 
         h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
+            font-size: 5rem;
+            line-height: 1.05;
             font-weight: 800;
-            margin-bottom: 2rem;
             color: var(--dark);
+            letter-spacing: -2px;
         }
 
         h1 span {
             color: var(--primary);
+            display: block;
         }
 
-        /* Loading Dots */
-        .loading-text {
+        /* Subtle Loading Indicator */
+        .redirect-status {
+            margin-top: 3rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            gap: 15px;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 1rem;
         }
 
-        .dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid #e2e8f0;
+            border-top: 2.5px solid var(--primary);
             border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both;
+            animation: spin 0.8s linear infinite;
         }
 
-        .dot:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .dot:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            80%,
-            100% {
-                transform: scale(0);
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
             }
 
-            40% {
-                transform: scale(1.0);
+            100% {
+                transform: rotate(360deg);
             }
         }
 
@@ -141,10 +124,10 @@
 
         .hero-image img {
             width: 100%;
-            max-width: 550px;
-            border-radius: 40px;
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.15);
-            animation: float 6s ease-in-out infinite;
+            max-width: 600px;
+            border-radius: 45px;
+            box-shadow: 0 40px 100px -20px rgba(15, 23, 42, 0.15);
+            animation: float 8s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -155,94 +138,107 @@
             }
 
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
         }
 
-        /* Config Box (Hidden by default, shown if no URL) */
-        #configContainer {
+        /* Stealth Config Modal */
+        #setupOverlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 9999;
         }
 
-        .config-card {
+        .setup-card {
             background: white;
-            padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+            padding: 3.5rem;
+            border-radius: 35px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08);
             text-align: center;
-            max-width: 450px;
             width: 90%;
+            max-width: 500px;
+            border: 1px solid #f1f5f9;
         }
 
-        .config-card h2 {
-            margin-bottom: 1rem;
+        .setup-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
             color: var(--dark);
         }
 
-        .config-card p {
-            margin-bottom: 2rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
+        .setup-card p {
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+            line-height: 1.6;
         }
 
         input {
             width: 100%;
-            padding: 1.2rem;
-            border: 2px solid #E2E8F0;
-            border-radius: 16px;
+            padding: 1.3rem;
+            border: 2px solid #f1f5f9;
+            border-radius: 20px;
             margin-bottom: 1.5rem;
             outline: none;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #f8fafc;
         }
 
         input:focus {
             border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.05);
         }
 
-        .btn-save {
+        button {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.3rem;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 16px;
+            border-radius: 20px;
             font-weight: 700;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.05rem;
             transition: all 0.3s;
         }
 
-        .btn-save:hover {
-            background: var(--primary-dark);
+        button:hover {
+            background: #3730a3;
             transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2);
         }
 
-        @media (max-width: 968px) {
+        @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
                 text-align: center;
+                justify-content: center;
             }
 
             h1 {
-                font-size: 3rem;
+                font-size: 3.5rem;
+                letter-spacing: -1px;
             }
 
             .hero-image {
                 justify-content: center;
+                width: 100%;
             }
 
-            .loading-text {
+            .hero-image img {
+                max-width: 500px;
+            }
+
+            .redirect-status {
                 justify-content: center;
             }
         }
@@ -252,56 +248,62 @@
 <body>
 
     <div class="container">
-        <div class="hero-content">
+        <div class="hero-text">
             <span class="badge">Platform Masa Depan</span>
-            <h1>Belajar Lebih <span>Cerdas</span> Dan Terukur</h1>
+            <h1>Belajar Lebih <span>Cerdas Dan Terukur</span></h1>
 
-            <div class="loading-text">
-                <span>Mengarahkan ke aplikasi</span>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
+            <div class="redirect-status" id="redirectStatus">
+                <div class="spinner"></div>
+                <span>Membuka aplikasi pembelajaran...</span>
             </div>
         </div>
+
         <div class="hero-image">
             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                alt="Learning Experience">
+                alt="Education Center">
         </div>
     </div>
 
-    <!-- Popup Konfigurasi - Hanya muncul jika URL belum diset -->
-    <div id="configContainer">
-        <div class="config-card">
-            <i class="fas fa-link" style="font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-            <input type="text" id="scriptUrl" placeholder="https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec">
-            <button class="btn-save" onclick="saveAndRedirect()">Menuju Halaman Utama</button>
+    <!-- Hidden Setup UI (Hanya muncul jika belum ada URL) -->
+    <div id="setupOverlay">
+        <div class="setup-card">
+            <div
+                style="width: 70px; height: 70px; background: #e0e7ff; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--primary); font-size: 1.8rem;">
+                🔗
+            </div>
+            <h2>Konfigurasi Sistem</h2>
+            <p>Halaman ini akan tersambung ke aplikasi utama. Silakan tempelkan (paste) link Apps Script Anda di bawah
+                ini.</p>
+            <input type="text" id="scriptUrl" placeholder="https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec" autocomplete="off">
+            <button onclick="applySetup()">Hubungkan Sekarang</button>
+            <p style="margin-top: 2rem; font-size: 0.75rem; opacity: 0.6;">Link ini akan disimpan di browser Anda dan
+                tidak akan terlihat oleh publik.</p>
         </div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'user_appscript_url';
+        const KEY = 'user_appscript_url';
 
         window.onload = function () {
-            const savedUrl = localStorage.getItem(STORAGE_KEY);
+            const savedUrl = localStorage.getItem(KEY);
 
             if (savedUrl && savedUrl.startsWith('http')) {
-                // Beri waktu 2.5 detik untuk animasi sebelum redirect
+                // Beri jeda 3 detik untuk animasi splash screen yang elegan
                 setTimeout(() => {
                     window.location.href = savedUrl;
-                }, 2500);
+                }, 3000);
             } else {
-                // Tampilkan kotak konfigurasi jika URL kosong
-                document.getElementById('configContainer').style.display = 'flex';
+                // Tampilkan setup jika belum ada link
+                document.getElementById('redirectStatus').style.display = 'none';
+                document.getElementById('setupOverlay').style.display = 'flex';
             }
         };
 
-        function saveAndRedirect() {
+        function applySetup() {
             const url = document.getElementById('scriptUrl').value.trim();
             if (url && url.startsWith('http')) {
-                localStorage.setItem(STORAGE_KEY, url);
-                window.location.reload(); // Refresh untuk memicu logic redirect
+                localStorage.setItem(KEY, url);
+                window.location.reload();
             } else {
                 alert('Tolong masukkan URL yang valid!');
             }
@@ -310,4 +312,3 @@
 </body>
 
 </html>
-                   
