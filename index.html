@@ -265,17 +265,13 @@
     </div>
 
     <script>
-        // GANTI TULISAN DI BAWAH INI DENGAN LINK APPS SCRIPT (WEB APP) ANDA
+        // Link Web App Apps Script Anda
         const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec';
 
         window.onload = function () {
             // Beri jeda 3 detik untuk animasi splash screen / landing page yang elegan
             setTimeout(() => {
-                if (APPS_SCRIPT_URL.includes('AKfycb')) {
-                    alert('Halo! Anda belum memasukkan URL Web App Anda di file github-pages-index.html. Silakan edit file tersebut dan masukkan link Anda di bagian APPS_SCRIPT_URL.');
-                } else {
-                    window.location.href = APPS_SCRIPT_URL;
-                }
+                window.location.href = APPS_SCRIPT_URL;
             }, 3000);
         };
     </script>
