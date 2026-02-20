@@ -264,50 +264,20 @@
         </div>
     </div>
 
-    <!-- Hidden Setup UI (Hanya muncul jika belum ada URL) -->
-    <div id="setupOverlay">
-        <div class="setup-card">
-            <div
-                style="width: 70px; height: 70px; background: #e0e7ff; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--primary); font-size: 1.8rem;">
-                🔗
-            </div>
-            <h2>Konfigurasi Sistem</h2>
-            <p>Halaman ini akan tersambung ke aplikasi utama. Silakan tempelkan (paste) link Apps Script Anda di bawah
-                ini.</p>
-            <input type="text" id="scriptUrl" placeholder="https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec" autocomplete="off">
-            <button onclick="applySetup()">Hubungkan Sekarang</button>
-            <p style="margin-top: 2rem; font-size: 0.75rem; opacity: 0.6;">Link ini akan disimpan di browser Anda dan
-                tidak akan terlihat oleh publik.</p>
-        </div>
-    </div>
-
     <script>
-        const KEY = 'user_appscript_url';
+        // GANTI TULISAN DI BAWAH INI DENGAN LINK APPS SCRIPT (WEB APP) ANDA
+        const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/guru.smk.belajar.id/s/AKfycbwD9w3UxQ5vxkmD7Knj-qYZKcnzs5gF7G0Do9e4-t_5DlRp_zhi0B89u37l1zu-7GQp/exec';
 
         window.onload = function () {
-            const savedUrl = localStorage.getItem(KEY);
-
-            if (savedUrl && savedUrl.startsWith('http')) {
-                // Beri jeda 3 detik untuk animasi splash screen yang elegan
-                setTimeout(() => {
-                    window.location.href = savedUrl;
-                }, 3000);
-            } else {
-                // Tampilkan setup jika belum ada link
-                document.getElementById('redirectStatus').style.display = 'none';
-                document.getElementById('setupOverlay').style.display = 'flex';
-            }
+            // Beri jeda 3 detik untuk animasi splash screen / landing page yang elegan
+            setTimeout(() => {
+                if (APPS_SCRIPT_URL.includes('AKfycb')) {
+                    alert('Halo! Anda belum memasukkan URL Web App Anda di file github-pages-index.html. Silakan edit file tersebut dan masukkan link Anda di bagian APPS_SCRIPT_URL.');
+                } else {
+                    window.location.href = APPS_SCRIPT_URL;
+                }
+            }, 3000);
         };
-
-        function applySetup() {
-            const url = document.getElementById('scriptUrl').value.trim();
-            if (url && url.startsWith('http')) {
-                localStorage.setItem(KEY, url);
-                window.location.reload();
-            } else {
-                alert('Tolong masukkan URL yang valid!');
-            }
-        }
     </script>
 </body>
 
